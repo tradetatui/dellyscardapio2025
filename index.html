@@ -707,6 +707,13 @@
             width: 100%;
         }
         
+        .data-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
         @media (max-width: 480px) {
             .stats-grid { grid-template-columns: 1fr; }
             .countdown-timer { font-size: 40px; }
@@ -723,7 +730,12 @@
     <div class="admin-overlay" id="adminOverlay" onclick="closeDashboard()"></div>
     <div class="password-screen" id="passwordScreen"><div class="password-box"><div>🔐 Área Restrita</div><input type="password" class="password-input" id="adminPassword" maxlength="4" placeholder="1234"><button class="password-btn" onclick="checkPassword()">ENTRAR</button></div></div>
     <div class="admin-panel" id="adminPanel"><div class="dashboard-header"><button class="close-dashboard" onclick="closeDashboard()">✕</button><div class="dashboard-title">📊 Dashboard</div></div><div class="dashboard-content"><div class="tab-buttons"><button class="tab-btn active" onclick="switchTab('control')">📊 Controle</button><button class="tab-btn" onclick="switchTab('delivery')">🚚 Zonas</button><button class="tab-btn" onclick="switchTab('tracking')">📦 Pedidos</button><button class="tab-btn" onclick="switchTab('categories')">📁 Categorias</button><button class="tab-btn" onclick="switchTab('products')">🍔 Produtos</button><button class="tab-btn" onclick="switchTab('prices')">💰 Preços</button></div>
-        <div id="tabControl" class="tab-content active"><div class="status-control-card"><div class="status-toggle-wrapper" onclick="toggleOnlineStatus()"><span class="status-text-big online" id="statusTextAdmin">ABERTO</span><div class="toggle-switch-big" id="toggleSwitchAdmin"></div></div><button class="save-manual-btn" onclick="manualSaveAll()">💾 SALVAR TUDO MANUALMENTE</button></div><div class="stats-grid"><div class="stat-card"><div class="stat-value" id="totalRevenue">R$ 0,00</div><div class="stat-label">Total Faturado</div></div><div class="stat-card"><div class="stat-value" id="totalOrders">0</div><div class="stat-label">Total Pedidos</div></div><div class="stat-card"><div class="stat-value" id="todayOrders">0</div><div class="stat-label">Pedidos Hoje</div></div><div class="stat-card"><div class="stat-value" id="activeOrders">0</div><div class="stat-label">Em Andamento</div></div></div><div class="payment-methods-card"><div id="paymentMethodsList"></div><div class="payment-total-bar" style="margin-top:20px;padding-top:20px;border-top:2px dashed var(--gray-light);display:flex;justify-content:space-between;"><span>Total em Vendas</span><span class="payment-total-value" id="paymentTotal" style="font-size:24px;font-weight:800;color:var(--success);">R$ 0,00</span></div></div><div class="orders-card"><div class="orders-header" style="display:flex;justify-content:space-between;margin-bottom:15px;"><span>🕐 Pedidos Recentes</span><button class="clear-btn" onclick="clearHistory()" style="font-size:12px;color:var(--danger);background:none;border:1px solid var(--danger);padding:6px 12px;border-radius:20px;cursor:pointer;">Limpar</button></div><div id="recentOrdersList"></div></div><div class="action-buttons" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;"><button class="action-btn primary" onclick="exportData()" style="background:linear-gradient(135deg,var(--easter-purple),var(--easter-pink));color:white;border:none;padding:14px;border-radius:16px;font-weight:700;cursor:pointer;">📥 Exportar Dados</button><button class="action-btn danger" onclick="logoutAdmin()" style="background:var(--danger);color:white;border:none;padding:14px;border-radius:16px;font-weight:700;cursor:pointer;">🚪 Sair</button></div></div>
+        <div id="tabControl" class="tab-content active">
+            <div class="data-buttons">
+                <button class="admin-btn" onclick="exportDataAsJSON()" style="background: var(--info);">📤 EXPORTAR DADOS</button>
+                <button class="admin-btn" onclick="importDataFromJSON()" style="background: var(--success);">📥 IMPORTAR DADOS</button>
+            </div>
+            <div class="status-control-card"><div class="status-toggle-wrapper" onclick="toggleOnlineStatus()"><span class="status-text-big online" id="statusTextAdmin">ABERTO</span><div class="toggle-switch-big" id="toggleSwitchAdmin"></div></div><button class="save-manual-btn" onclick="manualSaveAll()">💾 SALVAR TUDO MANUALMENTE</button></div><div class="stats-grid"><div class="stat-card"><div class="stat-value" id="totalRevenue">R$ 0,00</div><div class="stat-label">Total Faturado</div></div><div class="stat-card"><div class="stat-value" id="totalOrders">0</div><div class="stat-label">Total Pedidos</div></div><div class="stat-card"><div class="stat-value" id="todayOrders">0</div><div class="stat-label">Pedidos Hoje</div></div><div class="stat-card"><div class="stat-value" id="activeOrders">0</div><div class="stat-label">Em Andamento</div></div></div><div class="payment-methods-card"><div id="paymentMethodsList"></div><div class="payment-total-bar" style="margin-top:20px;padding-top:20px;border-top:2px dashed var(--gray-light);display:flex;justify-content:space-between;"><span>Total em Vendas</span><span class="payment-total-value" id="paymentTotal" style="font-size:24px;font-weight:800;color:var(--success);">R$ 0,00</span></div></div><div class="orders-card"><div class="orders-header" style="display:flex;justify-content:space-between;margin-bottom:15px;"><span>🕐 Pedidos Recentes</span><button class="clear-btn" onclick="clearHistory()" style="font-size:12px;color:var(--danger);background:none;border:1px solid var(--danger);padding:6px 12px;border-radius:20px;cursor:pointer;">Limpar</button></div><div id="recentOrdersList"></div></div><div class="action-buttons" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;"><button class="action-btn primary" onclick="exportData()" style="background:linear-gradient(135deg,var(--easter-purple),var(--easter-pink));color:white;border:none;padding:14px;border-radius:16px;font-weight:700;cursor:pointer;">📥 Exportar Histórico</button><button class="action-btn danger" onclick="logoutAdmin()" style="background:var(--danger);color:white;border:none;padding:14px;border-radius:16px;font-weight:700;cursor:pointer;">🚪 Sair</button></div></div>
         <div id="tabDelivery" class="tab-content"><div class="delivery-zones-card"><h3>🚚 Zonas de Entrega</h3><div class="admin-form-group"><label>Nova Zona</label><input type="text" id="newZoneName" placeholder="Ex: Centro, Jardins"></div><div class="admin-form-group"><label>Taxa (R$)</label><input type="number" id="newZonePrice" step="0.01" placeholder="5.00"></div><div class="admin-form-group"><label>Frete Grátis acima de (R$)</label><input type="number" id="newZoneFreeThreshold" step="0.01" placeholder="30.00"></div><button class="admin-btn" onclick="addDeliveryZone()">➕ Adicionar</button><hr style="margin:20px 0;"><h4>Zonas Cadastradas</h4><div id="deliveryZonesList"></div></div></div>
         <div id="tabTracking" class="tab-content"><div class="status-control-card"><h3>🚚 Pedidos em Andamento</h3><div id="activeTrackingList"></div></div></div>
         <div id="tabCategories" class="tab-content"><div class="status-control-card"><h3>📁 Gerenciar Categorias</h3><div class="admin-form-group"><label>Nova Categoria</label><input type="text" id="newCategoryName" placeholder="Ex: pizza, bebidas"><button class="admin-btn" onclick="addCategory()">➕ Adicionar Categoria</button></div><hr><h4>Categorias Existentes</h4><div id="categoriesList"></div><button class="save-manual-btn" onclick="manualSaveAll()" style="margin-top:15px;">💾 SALVAR CATEGORIAS</button></div></div>
@@ -851,6 +863,70 @@
         setTimeout(() => toast.remove(), 2000);
     }
     
+    // ==================== FUNÇÕES DE EXPORTAÇÃO/IMPORTAÇÃO ====================
+    function exportDataAsJSON() {
+        const dataToExport = {
+            menu: menu,
+            categories: categories,
+            categoryAvailable: categoryAvailable,
+            deliveryZones: deliveryZones,
+            nextProductId: nextProductId,
+            version: '1.0',
+            exportDate: new Date().toISOString()
+        };
+        
+        const dataStr = JSON.stringify(dataToExport, null, 2);
+        const blob = new Blob([dataStr], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `lanchonete_backup_${new Date().toISOString().slice(0,19).replace(/:/g, '-')}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        
+        showToast('✅ Dados exportados! Compartilhe este arquivo com seus funcionários.');
+    }
+    
+    function importDataFromJSON() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'application/json';
+        input.onchange = function(e) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                try {
+                    const imported = JSON.parse(evt.target.result);
+                    
+                    // Validar estrutura
+                    if (imported.menu && imported.categories) {
+                        menu = imported.menu;
+                        categories = imported.categories;
+                        if(imported.categoryAvailable) categoryAvailable = imported.categoryAvailable;
+                        if(imported.deliveryZones) deliveryZones = imported.deliveryZones;
+                        if(imported.nextProductId) nextProductId = imported.nextProductId;
+                        
+                        // Garantir que todas as categorias tenham arrays no menu
+                        categories.forEach(cat => {
+                            if(!menu[cat]) menu[cat] = [];
+                        });
+                        
+                        saveAllData();
+                        location.reload();
+                        showToast('✅ Dados importados com sucesso! A página será recarregada.');
+                    } else {
+                        showToast('❌ Arquivo inválido! Estrutura de dados incorreta.', true);
+                    }
+                } catch(err) {
+                    console.error(err);
+                    showToast('❌ Erro ao importar arquivo! Verifique o formato.', true);
+                }
+            };
+            reader.readAsText(file);
+        };
+        input.click();
+    }
+    
     // FUNÇÃO DE SALVAMENTO CORRIGIDA - MAIS ROBUSTA
     function saveAllData() { 
         try {
@@ -872,15 +948,6 @@
             localStorage.setItem('deliveryZones', JSON.stringify(deliveryZones));
             localStorage.setItem('lanchoneteOnline', JSON.stringify(isOnline));
             localStorage.setItem('nextProductId', JSON.stringify(nextProductId));
-            
-            // Verificar se salvou corretamente
-            const savedCat = localStorage.getItem('categories');
-            const parsedCat = JSON.parse(savedCat);
-            if (JSON.stringify(parsedCat) !== JSON.stringify(categories)) {
-                console.error('Erro: categorias não foram salvas corretamente!');
-                showToast('❌ Erro ao salvar categorias!', true);
-                return false;
-            }
             
             console.log('✅ Dados salvos com sucesso!');
             console.log('Categorias salvas:', categories);
@@ -998,10 +1065,6 @@
             renderAllProductsPriceList();
             updateDashboard();
             showToast(`✅ Categoria "${name}" adicionada e salva!`);
-            
-            // Verificar se salvou
-            const checkSaved = localStorage.getItem('categories');
-            console.log('Verificação após salvar:', checkSaved);
         } else {
             showToast('❌ Erro ao salvar categoria!', true);
         }
@@ -1359,7 +1422,7 @@
         a.href=URL.createObjectURL(new Blob([csv])); 
         a.download='pedidos.csv'; 
         a.click(); 
-        showToast('✅ Dados exportados!');
+        showToast('✅ Histórico exportado!');
     }
     
     function checkPassword() { 
@@ -1412,7 +1475,7 @@
         } 
     }
     
-    // ==================== FUNÇÕES DO CLIENTE (resumidas para caber) ====================
+    // ==================== FUNÇÕES DO CLIENTE ====================
     function showMainMenu() { 
         if(!isOnline){ showOfflineMessage(); return; } 
         let availableCategories = categories.filter(cat => categoryAvailable[cat] === true);
@@ -1914,6 +1977,8 @@
     window.saveEditedPrice = saveEditedPrice;
     window.closePriceModal = closePriceModal;
     window.manualSaveAll = manualSaveAll;
+    window.exportDataAsJSON = exportDataAsJSON;
+    window.importDataFromJSON = importDataFromJSON;
     
     // Inicialização
     loadData();
