@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Lanchonete Delivery - Cardápio Especial de Páscoa 🐰🥚</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ff6b35;
+            --primary-dark: #e55a2a;
+            --secondary: #f7931e;
+            --accent: #ffd23f;
+            --easter-purple: #9b59b6;
+            --easter-pink: #ff69b4;
+            --easter-yellow: #ffd93d;
+            --easter-green: #6ab04c;
+            --easter-blue: #54a0ff;
+            --dark: #1a1a2e;
+            --dark-light: #16213e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+            --success: #00b894;
+            --danger: #ff4757;
+            --warning: #f39c12;
+            --info: #3498db;
+            --whatsapp: #25D366;
+            --pix: #32BCAD;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #ffd89b 0%, #ffb347 50%, #ff8c00 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 550px;
+            height: 95vh;
+            background: white;
+            border-radius: 40px;
+            box-shadow: 0 20px 25px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, var(--easter-purple) 0%, var(--easter-pink) 50%, #ff9f4a 100%);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chat-header::before {
+            content: "🐰🥚🐣";
+            position: absolute;
+            right: -20px;
+            top: -10px;
+            font-size: 80px;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+        
+        .chat-header::after {
+            content: "🌸🌷🌸";
+            position: absolute;
+            left: -20px;
+            bottom: -10px;
+            font-size: 60px;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .bot-avatar {
+            width: 55px;
+            height: 55px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            border: 3px solid #ffd966;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255,215,0,0.5);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .header-info h2 {
+            font-size: 20px;
+            margin-bottom: 4px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .menu-card-simple {
+            background: linear-gradient(135deg, #fff9e6 0%, #fff0d4 100%);
+            border-radius: 25px;
+            padding: 20px 10px;
+            text-align: center;
+            border: 2px solid var(--easter-purple);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(155,89,182,0.2);
+        }
+        
+        .menu-card-simple::before {
+            content: "🐰";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 40px;
+            opacity: 0.1;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-card-simple:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--easter-pink);
+            box-shadow: 0 10px 25px rgba(255,105,180,0.3);
+        }
+        
+        .menu-card-simple:hover::before {
+            opacity: 0.3;
+            transform: rotate(10deg);
+        }
+        
+        .menu-card-simple .emoji {
+            font-size: 48px;
+            margin-bottom: 10px;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+        }
+        
+        .menu-card-simple .name {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--easter-purple);
+            margin-bottom: 5px;
+        }
+        
+        .menu-card-simple .price {
+            font-size: 12px;
+            color: var(--easter-pink);
+            font-weight: 600;
+        }
+
+        .easter-welcome {
+            background: linear-gradient(135deg, #f9e6b3 0%, #ffd966 100%);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--easter-purple);
+        }
+        
+        .easter-welcome h3 {
+            font-size: 22px;
+            color: var(--easter-purple);
+            margin-bottom: 8px;
+        }
+        
+        .easter-welcome p {
+            font-size: 14px;
+            color: #8b4513;
+        }
+        
+        .easter-welcome .easter-eggs {
+            font-size: 28px;
+            letter-spacing: 5px;
+            margin-top: 8px;
+        }
+
+        .admin-secret-area {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 80px;
+            height: 80px;
+            z-index: 200;
+            cursor: pointer;
+        }
+
+        .config-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 100;
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 22px;
+            border: 2px solid rgba(255,255,255,0.8);
+            transition: var(--transition);
+        }
+
+        .config-btn.visible {
+            display: flex;
+        }
+
+        .admin-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+            z-index: 250;
+            display: none;
+        }
+
+        .admin-overlay.active {
+            display: block;
+        }
+
+        .admin-panel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #f8f9fa;
+            z-index: 300;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            border-radius: 30px 30px 0 0;
+        }
+
+        .admin-panel.active {
+            transform: translateY(0);
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--easter-purple) 0%, var(--easter-pink) 100%);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-radius: 0 0 30px 30px;
+        }
+
+        .dashboard-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .close-dashboard {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .dashboard-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            background: white;
+            padding: 10px;
+            border-radius: 20px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 16px;
+            background: var(--gray-light);
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+            color: var(--gray);
+            min-width: 100px;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--easter-purple) 0%, var(--easter-pink) 100%);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .status-control-card, .payment-methods-card, .orders-card, .delivery-zones-card {
+            background: white;
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .status-toggle-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+
+        .status-text-big {
+            font-size: 32px;
+            font-weight: 800;
+            min-width: 130px;
+        }
+        .status-text-big.online { color: var(--success); }
+        .status-text-big.offline { color: var(--danger); }
+
+        .toggle-switch-big {
+            width: 120px;
+            height: 60px;
+            background: var(--success);
+            border-radius: 30px;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .toggle-switch-big.offline { background: var(--danger); }
+        .toggle-switch-big::after {
+            content: '';
+            position: absolute;
+            width: 52px;
+            height: 52px;
+            background: white;
+            border-radius: 50%;
+            top: 4px;
+            left: 4px;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .toggle-switch-big.offline::after { left: 64px; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--easter-purple), var(--easter-pink));
+        }
+        .stat-value { font-size: 28px; font-weight: 800; color: var(--dark); margin-bottom: 5px; }
+        .stat-label { font-size: 12px; color: var(--gray); text-transform: uppercase; font-weight: 600; }
+
+        .zone-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: var(--gray-light);
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+        .zone-name { font-weight: 700; }
+        .zone-price { color: var(--primary); font-weight: 800; }
+
+        .admin-form-group { margin-bottom: 18px; text-align: left; }
+        .admin-form-group label { display: block; font-weight: 600; margin-bottom: 6px; color: var(--dark); font-size: 13px; }
+        .admin-form-group input, .admin-form-group select, .admin-form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--gray-light);
+            border-radius: 12px;
+            font-size: 14px;
+        }
+        .admin-btn {
+            background: linear-gradient(135deg, var(--easter-purple) 0%, var(--easter-pink) 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 5px 0;
+        }
+        .category-item, .product-item {
+            background: var(--gray-light);
+            border-radius: 12px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .status-badge {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        .status-badge.active { background: var(--success); color: white; }
+        .status-badge.inactive { background: var(--danger); color: white; }
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 6px;
+            border-radius: 8px;
+        }
+        .icon-btn.edit { color: var(--info); }
+        .icon-btn.delete { color: var(--danger); }
+        .icon-btn.toggle { color: var(--warning); }
+
+        .password-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 400;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+        .password-screen.active { display: flex; }
+        .password-box {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            text-align: center;
+            width: 100%;
+            max-width: 320px;
+        }
+        .password-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 24px;
+            text-align: center;
+            letter-spacing: 8px;
+            border: 2px solid var(--gray-light);
+            border-radius: 15px;
+            margin-bottom: 15px;
+            font-family: monospace;
+        }
+        .password-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--easter-purple) 0%, var(--easter-pink) 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .offline-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 50;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+        .offline-overlay.active { display: flex; }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            background: #f5f5f5;
+        }
+        .message {
+            max-width: 100%;
+            padding: 15px;
+            border-radius: 20px;
+            font-size: 15px;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .message.bot {
+            background: white;
+            color: var(--dark);
+            border-left: 4px solid var(--easter-purple);
+            box-shadow: var(--shadow-sm);
+        }
+        .big-button {
+            background: linear-gradient(135deg, var(--easter-purple) 0%, var(--easter-pink) 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: 700;
+            margin: 8px 0;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            transition: var(--transition);
+        }
+        .item-card {
+            background: white;
+            border-radius: 20px;
+            padding: 18px;
+            margin: 12px 0;
+            border: 2px solid var(--easter-purple);
+            cursor: pointer;
+        }
+        .item-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+        .item-price { color: var(--easter-purple); font-size: 26px; font-weight: 800; margin-bottom: 12px; }
+        .popular-badge { background: linear-gradient(135deg, #ff69b4, #ffb6c1); color: white; padding: 3px 10px; border-radius: 20px; font-size: 11px; margin-left: 8px; }
+        .category-badge { background: linear-gradient(135deg, var(--easter-yellow), #ffb347); color: var(--dark); padding: 12px; border-radius: 15px; font-size: 16px; font-weight: 700; margin: 10px 0; text-align: center; }
+        .back-button { background: var(--gray-light); border: none; padding: 14px; border-radius: 15px; font-size: 16px; margin: 10px 0; cursor: pointer; width: 100%; transition: var(--transition); }
+        .back-button:hover { background: #e0e0e0; }
+        .quick-replies-simple { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 12px; background: white; border-top: 1px solid var(--gray-light); }
+        .quick-reply-simple { background: white; border: 2px solid var(--easter-purple); color: var(--easter-purple); padding: 12px; border-radius: 25px; font-size: 13px; font-weight: 600; text-align: center; cursor: pointer; transition: var(--transition); }
+        .quick-reply-simple:hover { background: var(--easter-purple); color: white; }
+        .cart-item-simple { background: var(--gray-light); border-radius: 15px; padding: 15px; margin: 10px 0; border-left: 4px solid var(--easter-purple); }
+        .cart-item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .cart-item-name { font-size: 16px; font-weight: 700; }
+        .cart-item-price { color: var(--easter-purple); font-size: 18px; font-weight: 700; }
+        .total-bar { background: linear-gradient(135deg, var(--easter-purple) 0%, var(--easter-pink) 100%); color: white; padding: 20px; border-radius: 20px; margin: 15px 0; font-size: 22px; font-weight: 700; text-align: center; }
+        .frete-info { background: var(--info); color: white; padding: 12px; border-radius: 12px; margin: 10px 0; text-align: center; font-size: 14px; }
+        .payment-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 15px 0; }
+        .payment-option { background: white; border: 2px solid var(--easter-purple); border-radius: 15px; padding: 18px; text-align: center; font-size: 16px; font-weight: 700; cursor: pointer; transition: var(--transition); }
+        .remove-btn { background: var(--danger); color: white; border: none; padding: 8px 14px; border-radius: 10px; font-size: 14px; cursor: pointer; margin-top: 8px; }
+        .extra-option { background: var(--gray-light); border-radius: 15px; padding: 14px; margin: 8px 0; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: 2px solid transparent; }
+        .extra-option.selected { background: #fff0e6; border-color: var(--easter-purple); }
+        .tracking-card { background: linear-gradient(135deg, var(--dark) 0%, var(--easter-purple) 100%); border-radius: 25px; padding: 25px; margin: 15px 0; color: white; }
+        .order-code { font-size: 24px; font-weight: 800; text-align: center; margin-bottom: 20px; font-family: monospace; letter-spacing: 2px; }
+        .countdown-timer { font-size: 56px; font-weight: 800; font-family: monospace; background: rgba(255,255,255,0.15); padding: 20px; border-radius: 25px; display: inline-block; margin: 10px 0; letter-spacing: 5px; }
+        .status-timeline { display: flex; justify-content: space-between; margin: 30px 0; flex-wrap: wrap; gap: 10px; }
+        .status-step { text-align: center; flex: 1; min-width: 70px; }
+        .status-icon { width: 55px; height: 55px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 24px; }
+        .status-step.active .status-icon { background: var(--success); transform: scale(1.1); }
+        .progress-bar { background: rgba(255,255,255,0.2); border-radius: 10px; height: 10px; overflow: hidden; margin: 20px 0; }
+        .progress-fill { background: linear-gradient(90deg, var(--success), var(--easter-pink)); height: 100%; width: 0%; transition: width 0.5s ease; }
+        
+        .address-form-container { padding: 5px; }
+        .input-group { margin-bottom: 18px; }
+        .input-group label { display: block; font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 6px; }
+        .input-group input { width: 100%; padding: 14px 16px; font-size: 15px; border: 2px solid var(--gray-light); border-radius: 15px; background: white; }
+        .address-row { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-bottom: 18px; }
+        .pix-card { background: linear-gradient(135deg, #32BCAD 0%, #28A99A 100%); color: white; padding: 20px; border-radius: 20px; margin: 15px 0; text-align: center; }
+        .pix-key { background: rgba(255,255,255,0.2); padding: 12px; border-radius: 12px; font-family: monospace; font-size: 16px; margin: 10px 0; word-break: break-all; cursor: pointer; transition: all 0.3s ease; }
+        .pix-key:hover { background: rgba(255,255,255,0.4); transform: scale(1.02); }
+        .copy-button { background: white; color: #32BCAD; border: none; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 10px; transition: all 0.3s ease; }
+        .copy-button:hover { transform: scale(1.02); background: #f0f0f0; }
+        .comprovante-aviso { background: #ffc107; color: #856404; padding: 12px; border-radius: 12px; margin: 10px 0; text-align: center; font-size: 13px; font-weight: 600; }
+        .change-option { display: flex; flex-direction: column; gap: 15px; margin: 10px 0; padding: 15px; background: var(--gray-light); border-radius: 12px; }
+        .edit-price-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 500;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        .edit-price-modal.active { display: flex; }
+        .edit-price-box {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            width: 90%;
+            max-width: 350px;
+            text-align: center;
+        }
+        .observation-box {
+            background: var(--gray-light);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .observation-box textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 2px solid var(--easter-purple);
+            font-size: 14px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        .toast-message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--success);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            z-index: 1000;
+            font-weight: bold;
+            animation: fadeOut 2s ease forwards;
+        }
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+        .save-manual-btn {
+            background: var(--warning);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+        
+        @media (max-width: 480px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .countdown-timer { font-size: 40px; }
+            .address-row { grid-template-columns: 1fr; gap: 0; }
+            .tab-btn { font-size: 12px; padding: 8px; min-width: 70px; }
+            .category-item, .product-item { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+<div class="chat-container">
+    <div class="admin-secret-area" onclick="handleAdminClick()"></div>
+    <div class="config-btn" id="configBtn" onclick="openDashboard()">⚙️</div>
+    <div class="admin-overlay" id="adminOverlay" onclick="closeDashboard()"></div>
+    <div class="password-screen" id="passwordScreen"><div class="password-box"><div>🔐 Área Restrita</div><input type="password" class="password-input" id="adminPassword" maxlength="4" placeholder="1234"><button class="password-btn" onclick="checkPassword()">ENTRAR</button></div></div>
+    <div class="admin-panel" id="adminPanel"><div class="dashboard-header"><button class="close-dashboard" onclick="closeDashboard()">✕</button><div class="dashboard-title">📊 Dashboard</div></div><div class="dashboard-content"><div class="tab-buttons"><button class="tab-btn active" onclick="switchTab('control')">📊 Controle</button><button class="tab-btn" onclick="switchTab('delivery')">🚚 Zonas</button><button class="tab-btn" onclick="switchTab('tracking')">📦 Pedidos</button><button class="tab-btn" onclick="switchTab('categories')">📁 Categorias</button><button class="tab-btn" onclick="switchTab('products')">🍔 Produtos</button><button class="tab-btn" onclick="switchTab('prices')">💰 Preços</button></div>
+        <div id="tabControl" class="tab-content active"><div class="status-control-card"><div class="status-toggle-wrapper" onclick="toggleOnlineStatus()"><span class="status-text-big online" id="statusTextAdmin">ABERTO</span><div class="toggle-switch-big" id="toggleSwitchAdmin"></div></div><button class="save-manual-btn" onclick="manualSaveAll()">💾 SALVAR TUDO MANUALMENTE</button></div><div class="stats-grid"><div class="stat-card"><div class="stat-value" id="totalRevenue">R$ 0,00</div><div class="stat-label">Total Faturado</div></div><div class="stat-card"><div class="stat-value" id="totalOrders">0</div><div class="stat-label">Total Pedidos</div></div><div class="stat-card"><div class="stat-value" id="todayOrders">0</div><div class="stat-label">Pedidos Hoje</div></div><div class="stat-card"><div class="stat-value" id="activeOrders">0</div><div class="stat-label">Em Andamento</div></div></div><div class="payment-methods-card"><div id="paymentMethodsList"></div><div class="payment-total-bar" style="margin-top:20px;padding-top:20px;border-top:2px dashed var(--gray-light);display:flex;justify-content:space-between;"><span>Total em Vendas</span><span class="payment-total-value" id="paymentTotal" style="font-size:24px;font-weight:800;color:var(--success);">R$ 0,00</span></div></div><div class="orders-card"><div class="orders-header" style="display:flex;justify-content:space-between;margin-bottom:15px;"><span>🕐 Pedidos Recentes</span><button class="clear-btn" onclick="clearHistory()" style="font-size:12px;color:var(--danger);background:none;border:1px solid var(--danger);padding:6px 12px;border-radius:20px;cursor:pointer;">Limpar</button></div><div id="recentOrdersList"></div></div><div class="action-buttons" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;"><button class="action-btn primary" onclick="exportData()" style="background:linear-gradient(135deg,var(--easter-purple),var(--easter-pink));color:white;border:none;padding:14px;border-radius:16px;font-weight:700;cursor:pointer;">📥 Exportar Dados</button><button class="action-btn danger" onclick="logoutAdmin()" style="background:var(--danger);color:white;border:none;padding:14px;border-radius:16px;font-weight:700;cursor:pointer;">🚪 Sair</button></div></div>
+        <div id="tabDelivery" class="tab-content"><div class="delivery-zones-card"><h3>🚚 Zonas de Entrega</h3><div class="admin-form-group"><label>Nova Zona</label><input type="text" id="newZoneName" placeholder="Ex: Centro, Jardins"></div><div class="admin-form-group"><label>Taxa (R$)</label><input type="number" id="newZonePrice" step="0.01" placeholder="5.00"></div><div class="admin-form-group"><label>Frete Grátis acima de (R$)</label><input type="number" id="newZoneFreeThreshold" step="0.01" placeholder="30.00"></div><button class="admin-btn" onclick="addDeliveryZone()">➕ Adicionar</button><hr style="margin:20px 0;"><h4>Zonas Cadastradas</h4><div id="deliveryZonesList"></div></div></div>
+        <div id="tabTracking" class="tab-content"><div class="status-control-card"><h3>🚚 Pedidos em Andamento</h3><div id="activeTrackingList"></div></div></div>
+        <div id="tabCategories" class="tab-content"><div class="status-control-card"><h3>📁 Gerenciar Categorias</h3><div class="admin-form-group"><label>Nova Categoria</label><input type="text" id="newCategoryName" placeholder="Ex: pizza, bebidas"><button class="admin-btn" onclick="addCategory()">➕ Adicionar Categoria</button></div><hr><h4>Categorias Existentes</h4><div id="categoriesList"></div><button class="save-manual-btn" onclick="manualSaveAll()" style="margin-top:15px;">💾 SALVAR CATEGORIAS</button></div></div>
+        <div id="tabProducts" class="tab-content"><div class="status-control-card"><h3>🍔 Gerenciar Produtos</h3><div class="admin-form-group"><label>Categoria</label><select id="productCategorySelect"></select></div><div class="admin-form-group"><label>Nome</label><input type="text" id="productName"></div><div class="admin-form-group"><label>Preço (R$)</label><input type="number" id="productPrice" step="0.01"></div><div class="admin-form-group"><label>Descrição</label><textarea id="productDesc" rows="2"></textarea></div><div class="admin-form-group"><label>Popular?</label><select id="productPopular"><option value="false">Não</option><option value="true">Sim 🔥</option></select></div><div class="admin-form-group"><label>Disponível?</label><select id="productAvailable"><option value="true">Sim ✅</option><option value="false">Não ❌</option></select></div><button class="admin-btn" onclick="addProduct()">➕ Adicionar Produto</button><hr><h4>Produtos por Categoria</h4><div id="productsListByCategory"></div></div></div>
+        <div id="tabPrices" class="tab-content"><div class="status-control-card"><h3>💰 Gerenciar Preços dos Produtos</h3><p style="color:var(--gray);margin-bottom:15px;">Clique no ícone ✏️ para editar o preço de cada produto</p><div id="allProductsPriceList"></div></div></div>
+    </div></div>
+    <div class="offline-overlay" id="offlineOverlay"><div>🔴</div><div>ESTAMOS FECHADOS</div><a href="tel:15997188659" style="background:var(--whatsapp);color:white;padding:15px 30px;border-radius:30px;text-decoration:none;">📞 LIGAR AGORA</a></div>
+    <div class="chat-header">
+        <div class="bot-avatar" onclick="showMainMenu()">🐰🥚</div>
+        <div class="header-info">
+            <h2>🐣 Feliz Páscoa! 🐣</h2>
+            <div>📞 (15) 99718-8659</div>
+        </div>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="quick-replies-simple"><button class="quick-reply-simple" onclick="showMainMenu()">🐣 Início</button><button class="quick-reply-simple" onclick="showCart()">🛒 Carrinho</button><button class="quick-reply-simple" onclick="showTrackOrder()">🚚 Rastrear</button></div>
+</div>
+
+<!-- Modal para editar preço -->
+<div class="edit-price-modal" id="editPriceModal">
+    <div class="edit-price-box">
+        <h3>✏️ Editar Preço</h3>
+        <div id="editProductName" style="font-weight:bold;margin:15px 0;"></div>
+        <input type="number" id="editPriceValue" step="0.01" style="width:100%;padding:12px;border-radius:12px;border:2px solid var(--gray-light);margin-bottom:15px;font-size:18px;">
+        <button class="admin-btn" onclick="saveEditedPrice()" style="width:100%;margin-bottom:10px;">💾 SALVAR</button>
+        <button class="back-button" onclick="closePriceModal()">CANCELAR</button>
+    </div>
+</div>
+
+<script>
+    // ==================== CONFIGURAÇÕES ====================
+    const ADMIN_PASSWORD = '1234';
+    const WHATSAPP_NUMBER = '5515997188659';
+    const TOTAL_DELIVERY_TIME = 45;
+    const PIX_KEY = '16.098.064/0001-07';
+    const STATUS_TIMES = { PENDING: 0, PREPARING: 10, DELIVERY: 25, COMPLETED: 45 };
+    const ORDER_STATUS = { PENDING: { name: 'Aguardando', icon: '⏳' }, PREPARING: { name: 'Preparando', icon: '🍳' }, DELIVERY: { name: 'Saiu para Entrega', icon: '🚚' }, COMPLETED: { name: 'Entregue', icon: '✅' } };
+    
+    // ==================== CARDÁPIO COMPLETO COM 33 LANCHES ====================
+    let menu = {
+        hamburguer: [
+            { id: 1, name: "Hambúrguer Especial", price: 15.00, desc: "Pão, hambúrguer, queijo, presunto, catchup, batata e maionese", popular: true, available: true },
+            { id: 2, name: "Hambúrguer Duplo Especial", price: 18.00, desc: "Pão, 2 hambúrguer, queijo, presunto, catchup, batata e maionese", popular: true, available: true },
+            { id: 3, name: "X-Salada", price: 15.00, desc: "Pão, hambúrguer, salada, queijo, presunto, catchup, batata e maionese", available: true },
+            { id: 4, name: "X-Bacon Especial", price: 20.00, desc: "Pão, hambúrguer, bacon, salada, queijo, presunto, catchup, batata e maionese", popular: true, available: true },
+            { id: 5, name: "X-Bacon Egg Especial", price: 22.00, desc: "Pão, hambúrguer, bacon, ovo, salada, queijo, presunto, catchup, batata e maionese", available: true },
+            { id: 6, name: "X-Egg", price: 18.00, desc: "Pão, hambúrguer, ovo, salada, queijo, presunto, catchup, batata e maionese", available: true },
+            { id: 7, name: "Americano", price: 16.00, desc: "Pão, hambúrguer, ovo, presunto, queijo, salada, batata, catchup, maionese e catupiry", available: true },
+            { id: 8, name: "Americano Bacon Especial", price: 22.00, desc: "Pão, hambúrguer, ovo, bacon, presunto, queijo, salada, batata, catchup, maionese e catupiry", available: true },
+            { id: 9, name: "Americano Calabresa Especial", price: 22.00, desc: "Pão, hambúrguer, ovo, calabresa, presunto, queijo, salada, batata, catchup, maionese e catupiry", available: true },
+            { id: 10, name: "Americano Frango Especial", price: 22.00, desc: "Pão, hambúrguer, ovo, frango, presunto, queijo, salada, batata, catchup, maionese e catupiry", available: true }
+        ],
+        frango: [
+            { id: 11, name: "X-Frango", price: 19.00, desc: "Pão, frango, queijo, salada, batata, catchup, maionese e hambúrguer", available: true },
+            { id: 12, name: "X-Frango Egg", price: 19.00, desc: "Pão, frango, queijo, ovo, salada, batata, catchup e maionese", available: true },
+            { id: 13, name: "X-Frango Bacon", price: 20.00, desc: "Pão, frango, queijo, bacon, salada, batata, catchup e maionese", popular: true, available: true },
+            { id: 14, name: "X-Frango Calabresa", price: 20.00, desc: "Pão, frango, queijo, calabresa, salada, batata, catchup e maionese", available: true },
+            { id: 15, name: "Catu Frango", price: 19.00, desc: "Pão, frango, queijo, catupiry, salada, batata, catchup e maionese", popular: true, available: true }
+        ],
+        calabresa: [
+            { id: 16, name: "X-Calabresa", price: 20.00, desc: "Pão, hambúrguer, calabresa, queijo, salada, catchup, maionese, catupiry", available: true },
+            { id: 17, name: "X-Calabresa Egg", price: 22.00, desc: "Pão, hambúrguer, calabresa, ovo, queijo, salada, catchup, maionese, catupiry", available: true },
+            { id: 18, name: "X-Calabresa Bacon Especial", price: 25.00, desc: "Pão, hambúrguer, calabresa, bacon, queijo, salada, catchup, maionese, catupiry", popular: true, available: true },
+            { id: 19, name: "X-Tudinho", price: 27.00, desc: "Pão, hambúrguer, calabresa, ovo, queijo, frango, bacon, batata, presunto, salada, catchup, maionese, catupiry", popular: true, available: true }
+        ],
+        hotdog: [
+            { id: 20, name: "Hot Dog Especial", price: 11.00, desc: "Pão, salsicha, milho, salada, batata, catchup e maionese", popular: true, available: true },
+            { id: 21, name: "Hot Dog Duplo Especial", price: 14.00, desc: "Pão, 2 salsichas, milho, salada, batata, catchup, maionese e catupiry", available: true },
+            { id: 22, name: "Hot Dog com Calabresa", price: 19.00, desc: "Pão, salsicha, calabresa, milho, salada, batata, catchup, maionese e catupiry", available: true },
+            { id: 23, name: "Hot Dog com Bacon", price: 19.00, desc: "Pão, salsicha, bacon, milho, salada, batata, catchup, maionese e catupiry", available: true },
+            { id: 24, name: "Hot Dog com Frango", price: 16.00, desc: "Pão, salsicha, frango, milho, salada, batata, catchup, maionese e catupiry", available: true }
+        ],
+        especial: [
+            { id: 25, name: "Calafrango Especial", price: 25.00, desc: "Pão, calabresa, frango, hambúrguer, salada, batata, catupiry, catchup e maionese", available: true },
+            { id: 26, name: "Frango Bacon Especial", price: 25.00, desc: "Pão, bacon, frango, hambúrguer, salada, batata, catupiry, catchup e maionese", available: true },
+            { id: 27, name: "Fiapão Costela", price: 25.00, desc: "Pão, tomate, milho, batata, catupiry, maionese, costela desfiada, presunto, queijo catupiry", popular: true, available: true },
+            { id: 28, name: "Churrasquinho", price: 35.00, desc: "Pão, bife acebolado fatiado, salada, milho, catchup, queijo presunto, maionese", popular: true, available: true },
+            { id: 29, name: "Misto", price: 12.00, desc: "Pão, queijo, presunto, catchup, maionese e catupiry", available: true },
+            { id: 30, name: "Bacon Duplo", price: 24.00, desc: "Pão, 2 hambúrguer, salada, bacon, catchup, presunto, mussarela, batata", available: true },
+            { id: 31, name: "X-Tudo", price: 35.00, desc: "Pão, hambúrguer, bacon, ovo, calabresa, salsicha, milho, salada, catchup, maionese, catupiry e batata", popular: true, available: true },
+            { id: 32, name: "X-Tudo em Dois Pães", price: 65.00, desc: "Tomate, milho, batata, catchup, maionese, mostarda, hambúrguer, bacon, calabresa, frango, ovo, presunto, queijo, catupiry (serve 2 pessoas)", popular: true, available: true },
+            { id: 33, name: "Dog Loko Especial", price: 35.00, desc: "Pão, 4 hambúrguer, ovo, salsicha, bacon, milho, calabresa, salada, batata, catchup, maionese, catupiry", available: true }
+        ]
+    };
+
+    let categories = ['hamburguer', 'frango', 'calabresa', 'hotdog', 'especial'];
+    let categoryAvailable = { hamburguer: true, frango: true, calabresa: true, hotdog: true, especial: true };
+    let nextProductId = 100;
+    const adicionais = [
+        { name: "Bacon", price: 9.00 }, { name: "Calabresa", price: 9.00 }, { name: "Maionese Grill", price: 5.00 },
+        { name: "Frango", price: 6.00 }, { name: "Ovo", price: 3.00 }, { name: "Catupiry", price: 2.50 },
+        { name: "Hambúrguer", price: 3.00 }, { name: "Cheddar", price: 2.50 }, { name: "Hambúrguer Picanha", price: 8.00 },
+        { name: "Presunto e Mussarela", price: 5.00 }
+    ];
+    
+    let deliveryZones = [
+        { name: "Centro", price: 5.00, freeThreshold: 30.00 },
+        { name: "Jardins", price: 8.00, freeThreshold: 40.00 },
+        { name: "Zona Norte", price: 10.00, freeThreshold: 50.00 },
+        { name: "Zona Sul", price: 12.00, freeThreshold: 60.00 }
+    ];
+    
+    // ==================== VARIÁVEIS GLOBAIS ====================
+    let cart = [];
+    let tempItem = null;
+    let selectedExtras = [];
+    let currentObservation = '';
+    let currentPaymentMethod = '';
+    let currentDeliveryZone = null;
+    let currentFreteValue = 0;
+    let isOnline = true;
+    let isAdminLogged = false;
+    let adminClickCount = 0;
+    let activeOrders = [];
+    let trackingIntervals = {};
+    let customerData = { name: '', phone: '', street: '', number: '', neighborhood: '', reference: '' };
+    let currentEditingProduct = null;
+    
+    function showToast(message, isError = false) {
+        const toast = document.createElement('div');
+        toast.className = 'toast-message';
+        toast.style.background = isError ? 'var(--danger)' : 'var(--success)';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 2000);
+    }
+    
+    // FUNÇÃO DE SALVAMENTO CORRIGIDA - MAIS ROBUSTA
+    function saveAllData() { 
+        try {
+            // Verificar se há espaço no localStorage
+            const testKey = 'test';
+            try {
+                localStorage.setItem(testKey, 'test');
+                localStorage.removeItem(testKey);
+            } catch(e) {
+                showToast('⚠️ Armazenamento cheio! Limpe os dados antigos.', true);
+                return false;
+            }
+            
+            // Salvar cada item individualmente
+            localStorage.setItem('menuData', JSON.stringify(menu));
+            localStorage.setItem('categories', JSON.stringify(categories));
+            localStorage.setItem('categoryAvailable', JSON.stringify(categoryAvailable));
+            localStorage.setItem('activeOrders', JSON.stringify(activeOrders));
+            localStorage.setItem('deliveryZones', JSON.stringify(deliveryZones));
+            localStorage.setItem('lanchoneteOnline', JSON.stringify(isOnline));
+            localStorage.setItem('nextProductId', JSON.stringify(nextProductId));
+            
+            // Verificar se salvou corretamente
+            const savedCat = localStorage.getItem('categories');
+            const parsedCat = JSON.parse(savedCat);
+            if (JSON.stringify(parsedCat) !== JSON.stringify(categories)) {
+                console.error('Erro: categorias não foram salvas corretamente!');
+                showToast('❌ Erro ao salvar categorias!', true);
+                return false;
+            }
+            
+            console.log('✅ Dados salvos com sucesso!');
+            console.log('Categorias salvas:', categories);
+            showToast('✅ Dados salvos com sucesso!');
+            return true;
+        } catch(e) {
+            console.error('Erro ao salvar:', e);
+            showToast('❌ Erro ao salvar dados!', true);
+            return false;
+        }
+    }
+    
+    // Salvar manualmente
+    function manualSaveAll() {
+        saveAllData();
+        renderCategoriesList();
+        renderProductsList();
+        renderAllProductsPriceList();
+        updateDashboard();
+    }
+    
+    function loadData() { 
+        try {
+            const savedMenu = localStorage.getItem('menuData'); 
+            if(savedMenu) { 
+                menu = JSON.parse(savedMenu); 
+                console.log('Menu carregado:', Object.keys(menu));
+            }
+            
+            const savedCat = localStorage.getItem('categories'); 
+            if(savedCat) { 
+                categories = JSON.parse(savedCat); 
+                console.log('Categorias carregadas:', categories);
+            } else {
+                // Se não tem categorias salvas, salva as padrão
+                saveAllData();
+            }
+            
+            const savedCatAvailable = localStorage.getItem('categoryAvailable'); 
+            if(savedCatAvailable) { 
+                categoryAvailable = JSON.parse(savedCatAvailable); 
+            } else {
+                saveAllData();
+            }
+            
+            const savedZones = localStorage.getItem('deliveryZones'); 
+            if(savedZones) { 
+                deliveryZones = JSON.parse(savedZones); 
+            }
+            
+            const savedNextId = localStorage.getItem('nextProductId'); 
+            if(savedNextId) { 
+                nextProductId = JSON.parse(savedNextId); 
+            }
+            
+            // Garantir que todas as categorias tenham um array no menu
+            categories.forEach(c=>{ 
+                if(!menu[c]) menu[c]=[]; 
+                if(categoryAvailable[c] === undefined) categoryAvailable[c] = true; 
+            });
+            
+            const savedOrders = localStorage.getItem('activeOrders'); 
+            if(savedOrders) { 
+                activeOrders = JSON.parse(savedOrders); 
+            }
+            
+            const savedOnline = localStorage.getItem('lanchoneteOnline'); 
+            if(savedOnline !== null) {
+                isOnline = JSON.parse(savedOnline);
+            }
+            
+            const adminSession = localStorage.getItem('adminSession'); 
+            if(adminSession === 'true') { 
+                isAdminLogged = true; 
+                const configBtn = document.getElementById('configBtn');
+                if(configBtn) configBtn.classList.add('visible');
+            }
+            
+            updateStatusUI(); 
+            updateAdminToggleUI(); 
+            updateDashboard(); 
+            startTrackingTimers(); 
+            renderDeliveryZonesList();
+            console.log('✅ Dados carregados com sucesso!');
+            return true;
+        } catch(e) {
+            console.error('Erro ao carregar:', e);
+            return false;
+        }
+    }
+    
+    // ==================== FUNÇÕES DE CATEGORIAS ====================
+    function addCategory() {
+        let name = document.getElementById('newCategoryName').value.trim().toLowerCase().replace(/\s+/g, '');
+        if(!name) {
+            showToast('Digite um nome para a categoria!', true);
+            return;
+        }
+        if(categories.includes(name)) {
+            showToast('Categoria já existe!', true);
+            return;
+        }
+        
+        categories.push(name);
+        categoryAvailable[name] = true;
+        menu[name] = [];
+        
+        // Salvar imediatamente
+        const saved = saveAllData();
+        
+        if(saved) {
+            document.getElementById('newCategoryName').value = '';
+            renderCategoriesList();
+            updateCategorySelects();
+            renderAllProductsPriceList();
+            updateDashboard();
+            showToast(`✅ Categoria "${name}" adicionada e salva!`);
+            
+            // Verificar se salvou
+            const checkSaved = localStorage.getItem('categories');
+            console.log('Verificação após salvar:', checkSaved);
+        } else {
+            showToast('❌ Erro ao salvar categoria!', true);
+        }
+    }
+    
+    function deleteCategory(cat) {
+        if(categories.length <= 1) {
+            showToast('Mantenha pelo menos uma categoria!', true);
+            return;
+        }
+        if(confirm(`Remover a categoria "${cat}" e todos os seus produtos?`)) {
+            categories = categories.filter(c => c !== cat);
+            delete categoryAvailable[cat];
+            delete menu[cat];
+            saveAllData();
+            renderCategoriesList();
+            updateCategorySelects();
+            renderAllProductsPriceList();
+            updateDashboard();
+            showToast(`✅ Categoria "${cat}" removida!`);
+        }
+    }
+    
+    function toggleCategoryAvailability(cat) {
+        categoryAvailable[cat] = !categoryAvailable[cat];
+        saveAllData();
+        renderCategoriesList();
+        updateDashboard();
+        showToast(`Categoria "${cat}" ${categoryAvailable[cat] ? 'disponível' : 'indisponível'}!`);
+    }
+    
+    function renderCategoriesList() {
+        let container = document.getElementById('categoriesList');
+        if(!container) return;
+        container.innerHTML = categories.map(cat => `
+            <div class="category-item">
+                <span>
+                    📁 <strong>${cat.toUpperCase()}</strong> 
+                    ${categoryAvailable[cat] ? '<span class="status-badge active">✅ Disponível</span>' : '<span class="status-badge inactive">❌ Indisponível</span>'}
+                    <span style="font-size:12px;color:gray;margin-left:10px;">${menu[cat]?.length || 0} produtos</span>
+                </span>
+                <div>
+                    <button class="icon-btn toggle" onclick="toggleCategoryAvailability('${cat}')" title="Ativar/Desativar">🔄</button>
+                    <button class="icon-btn delete" onclick="deleteCategory('${cat}')" title="Excluir Categoria">🗑️</button>
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    // ==================== FUNÇÕES DE EDIÇÃO DE PREÇOS ====================
+    function openPriceEditor(category, productId) {
+        let product = menu[category].find(p => p.id === productId);
+        if(product) {
+            currentEditingProduct = { category, productId, product };
+            document.getElementById('editProductName').innerHTML = product.name;
+            document.getElementById('editPriceValue').value = product.price;
+            document.getElementById('editPriceModal').classList.add('active');
+        }
+    }
+    
+    function saveEditedPrice() {
+        if(currentEditingProduct) {
+            let newPrice = parseFloat(document.getElementById('editPriceValue').value);
+            if(isNaN(newPrice) || newPrice <= 0) {
+                showToast('Digite um preço válido!', true);
+                return;
+            }
+            let product = menu[currentEditingProduct.category].find(p => p.id === currentEditingProduct.productId);
+            if(product) {
+                product.price = newPrice;
+                saveAllData();
+                renderAllProductsPriceList();
+                renderProductsList();
+                showToast(`✅ Preço de "${product.name}" alterado para R$ ${newPrice.toFixed(2)}`);
+            }
+            closePriceModal();
+        }
+    }
+    
+    function closePriceModal() {
+        document.getElementById('editPriceModal').classList.remove('active');
+        currentEditingProduct = null;
+    }
+    
+    function renderAllProductsPriceList() {
+        let container = document.getElementById('allProductsPriceList');
+        if(!container) return;
+        let html = '';
+        categories.forEach(cat => {
+            let prods = menu[cat] || [];
+            if(prods.length) {
+                html += `<h4 style="margin-top:15px;color:var(--easter-purple);">📁 ${cat.toUpperCase()} ${categoryAvailable[cat] ? '✅' : '❌'}</h4>`;
+                prods.forEach(p => {
+                    html += `<div class="product-item" style="display:flex;justify-content:space-between;align-items:center;">
+                        <div>
+                            <strong>${p.name}</strong><br>
+                            <span style="color:var(--easter-purple);font-size:20px;font-weight:800;">R$ ${p.price.toFixed(2)}</span>
+                            ${p.popular ? '<span class="popular-badge" style="margin-left:8px;">🔥 POPULAR</span>' : ''}
+                            ${!p.available ? '<span class="status-badge inactive" style="margin-left:8px;">❌ Indisponível</span>' : ''}
+                        </div>
+                        <button class="icon-btn edit" onclick="openPriceEditor('${cat}', ${p.id})" style="background:var(--info);color:white;padding:8px 15px;border-radius:12px;">✏️ Editar</button>
+                    </div>`;
+                });
+            }
+        });
+        container.innerHTML = html || '<div>Nenhum produto cadastrado</div>';
+    }
+    
+    // ==================== FUNÇÕES ADMIN ====================
+    function addDeliveryZone() {
+        let name = document.getElementById('newZoneName')?.value.trim();
+        let price = parseFloat(document.getElementById('newZonePrice')?.value);
+        let freeThreshold = parseFloat(document.getElementById('newZoneFreeThreshold')?.value) || 0;
+        if(!name || isNaN(price)) {
+            showToast('Preencha todos os campos!', true);
+            return;
+        }
+        deliveryZones.push({ name, price, freeThreshold });
+        saveAllData();
+        document.getElementById('newZoneName').value = '';
+        document.getElementById('newZonePrice').value = '';
+        document.getElementById('newZoneFreeThreshold').value = '';
+        renderDeliveryZonesList();
+        showToast(`✅ Zona "${name}" adicionada!`);
+    }
+    
+    function deleteDeliveryZone(index) {
+        if(deliveryZones.length <= 1) {
+            showToast('Mantenha pelo menos uma zona!', true);
+            return;
+        }
+        if(confirm('Remover esta zona?')) { 
+            deliveryZones.splice(index, 1); 
+            saveAllData();
+            renderDeliveryZonesList(); 
+            showToast('✅ Zona removida!');
+        }
+    }
+    
+    function renderDeliveryZonesList() {
+        let container = document.getElementById('deliveryZonesList');
+        if(container) container.innerHTML = deliveryZones.map((z, idx) => `<div class="zone-item"><span>📍 ${z.name} - R$ ${z.price.toFixed(2)} ${z.freeThreshold>0?`(grátis acima R$ ${z.freeThreshold})`:''}</span><button class="icon-btn delete" onclick="deleteDeliveryZone(${idx})">🗑️</button></div>`).join('');
+    }
+    
+    function addProduct() { 
+        let cat = document.getElementById('productCategorySelect')?.value, 
+            name = document.getElementById('productName')?.value.trim(), 
+            price = parseFloat(document.getElementById('productPrice')?.value), 
+            desc = document.getElementById('productDesc')?.value.trim(), 
+            popular = document.getElementById('productPopular')?.value === 'true',
+            available = document.getElementById('productAvailable')?.value === 'true'; 
+        if(!cat||!name||isNaN(price)||price<=0) {
+            showToast('Preencha todos os campos!', true);
+            return;
+        }
+        const newId = nextProductId++;
+        menu[cat].push({ id: newId, name, price, desc: desc||'Delicioso', popular, available }); 
+        saveAllData(); 
+        document.getElementById('productName').value = ''; 
+        document.getElementById('productPrice').value = ''; 
+        document.getElementById('productDesc').value = ''; 
+        renderProductsList(); 
+        renderAllProductsPriceList();
+        updateDashboard(); 
+        showToast(`✅ "${name}" adicionado com sucesso!`);
+    }
+    
+    function deleteProduct(cat, id) { 
+        if(confirm('Remover produto?')){ 
+            menu[cat] = menu[cat].filter(p=>p.id!==id); 
+            saveAllData(); 
+            renderProductsList(); 
+            renderAllProductsPriceList();
+            updateDashboard(); 
+            showToast('✅ Produto removido!');
+        } 
+    }
+    
+    function toggleProductAvailability(cat, id) {
+        let product = menu[cat].find(p=>p.id===id);
+        if(product) {
+            product.available = !product.available;
+            saveAllData();
+            renderProductsList();
+            renderAllProductsPriceList();
+            updateDashboard();
+            showToast(`Produto "${product.name}" ${product.available ? 'disponível' : 'indisponível'}!`);
+        }
+    }
+    
+    function renderProductsList() { 
+        let container = document.getElementById('productsListByCategory'); 
+        if(!container) return; 
+        let html=''; 
+        categories.forEach(cat=>{ 
+            let prods = menu[cat]||[]; 
+            if(prods.length) { 
+                html+=`<h4 style="margin-top:15px;">📁 ${cat} ${categoryAvailable[cat] ? '✅' : '❌'}</h4>`; 
+                prods.forEach(p=>{ 
+                    html+=`<div class="product-item"><span>${p.name} - R$ ${p.price.toFixed(2)} ${p.popular?'🔥':''} ${p.available ? '<span class="status-badge active">✅ Disponível</span>' : '<span class="status-badge inactive">❌ Indisponível</span>'}</span><div><button class="icon-btn edit" onclick="openPriceEditor('${cat}',${p.id})" style="color:var(--info);" title="Editar Preço">✏️</button><button class="icon-btn toggle" onclick="toggleProductAvailability('${cat}',${p.id})" title="Ativar/Desativar">🔄</button><button class="icon-btn delete" onclick="deleteProduct('${cat}',${p.id})" title="Excluir">🗑️</button></div></div>`; 
+                }); 
+            } 
+        }); 
+        container.innerHTML = html || '<div>Nenhum produto</div>'; 
+    }
+    
+    function updateCategorySelects() { 
+        let sel = document.getElementById('productCategorySelect'); 
+        if(sel) sel.innerHTML = categories.map(c=>`<option value="${c}">${c.toUpperCase()}</option>`).join(''); 
+    }
+    
+    function toggleOnlineStatus() { 
+        isOnline = !isOnline; 
+        saveAllData();
+        updateAdminToggleUI(); 
+        updateStatusUI(); 
+        if(!isOnline) closeDashboard(); 
+        else showMainMenu(); 
+        showToast(isOnline ? '🟢 Loja ABERTA!' : '🔴 Loja FECHADA!');
+    }
+    
+    function updateAdminToggleUI() { 
+        let toggle = document.getElementById('toggleSwitchAdmin'), text = document.getElementById('statusTextAdmin'); 
+        if(toggle) isOnline ? toggle.classList.remove('offline') : toggle.classList.add('offline'); 
+        if(text) { 
+            text.textContent = isOnline ? 'ABERTO' : 'FECHADO'; 
+            text.classList.toggle('online', isOnline); 
+            text.classList.toggle('offline', !isOnline); 
+        } 
+    }
+    
+    function updateStatusUI() { 
+        let overlay = document.getElementById('offlineOverlay'); 
+        if(overlay) isOnline ? overlay.classList.remove('active') : overlay.classList.add('active'); 
+    }
+    
+    function updateDashboard() { 
+        let history = JSON.parse(localStorage.getItem('orderHistory'))||[]; 
+        let totalRev = history.reduce((s,o)=>s+o.total,0); 
+        let totalRevElem = document.getElementById('totalRevenue');
+        if(totalRevElem) totalRevElem.innerHTML = `R$ ${totalRev.toFixed(2)}`; 
+        let totalOrdersElem = document.getElementById('totalOrders');
+        if(totalOrdersElem) totalOrdersElem.innerHTML = history.length; 
+        let todayOrders = history.filter(o=>new Date(o.timestamp).toDateString()===new Date().toDateString()).length; 
+        let todayOrdersElem = document.getElementById('todayOrders');
+        if(todayOrdersElem) todayOrdersElem.innerHTML = todayOrders; 
+        let activeOrdersElem = document.getElementById('activeOrders');
+        if(activeOrdersElem) activeOrdersElem.innerHTML = activeOrders.filter(o=>o.status!=='COMPLETED').length; 
+        
+        let payments = {pix:0,credit:0,debit:0,cash:0}; 
+        history.forEach(o=>{ 
+            let m=o.payment.toLowerCase(); 
+            if(m.includes('pix')) payments.pix+=o.total; 
+            else if(m.includes('crédito') || m.includes('credito')) payments.credit+=o.total; 
+            else if(m.includes('débito') || m.includes('debito')) payments.debit+=o.total; 
+            else if(m.includes('dinheiro')) payments.cash+=o.total; 
+        }); 
+        let grand = Object.values(payments).reduce((a,b)=>a+b,0); 
+        let paymentTotalElem = document.getElementById('paymentTotal');
+        if(paymentTotalElem) paymentTotalElem.innerHTML = `R$ ${grand.toFixed(2)}`; 
+        
+        let pmList = document.getElementById('paymentMethodsList');
+        if(pmList) {
+            pmList.innerHTML = `
+                <div style="display:flex;justify-content:space-between;padding:12px;background:var(--gray-light);border-radius:12px;margin-bottom:8px;"><span>💠 PIX</span><span>R$ ${payments.pix.toFixed(2)}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:12px;background:var(--gray-light);border-radius:12px;margin-bottom:8px;"><span>💳 Crédito</span><span>R$ ${payments.credit.toFixed(2)}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:12px;background:var(--gray-light);border-radius:12px;margin-bottom:8px;"><span>💳 Débito</span><span>R$ ${payments.debit.toFixed(2)}</span></div>
+                <div style="display:flex;justify-content:space-between;padding:12px;background:var(--gray-light);border-radius:12px;"><span>💵 Dinheiro</span><span>R$ ${payments.cash.toFixed(2)}</span></div>
+            `;
+        }
+        
+        let recent = document.getElementById('recentOrdersList'); 
+        if(recent) recent.innerHTML = history.slice(-5).reverse().map(o=>`<div style="background:var(--gray-light);border-radius:16px;padding:15px;margin-bottom:12px;border-left:4px solid var(--success);"><div>#${o.code}</div><div>👤 ${o.customer.name}</div><div style="font-size:18px;font-weight:800;color:var(--success);">R$ ${o.total.toFixed(2)}</div></div>`).join('')||'<div>Nenhum pedido</div>'; 
+        updateAdminTrackingList(); 
+    }
+    
+    function updateAdminTrackingList() { 
+        let container = document.getElementById('activeTrackingList'); 
+        if(!container) return; 
+        let active = activeOrders.filter(o=>o.status!=='COMPLETED'); 
+        container.innerHTML = active.length ? active.map(o=>`<div style="background:#fff;border-radius:16px;padding:15px;margin-bottom:10px;"><div><strong>#${o.code}</strong> - ${ORDER_STATUS[o.status]?.icon} ${ORDER_STATUS[o.status]?.name}</div><div>👤 ${o.customer.name}</div><div><button onclick="manualUpdateStatus('${o.code}','PREPARING')" style="background:var(--info);border:none;padding:6px 12px;border-radius:12px;margin:5px;color:white;cursor:pointer;">🍳 Preparando</button><button onclick="manualUpdateStatus('${o.code}','DELIVERY')" style="background:var(--warning);border:none;padding:6px 12px;border-radius:12px;margin:5px;color:white;cursor:pointer;">🚚 Saiu</button><button onclick="manualUpdateStatus('${o.code}','COMPLETED')" style="background:var(--success);border:none;padding:6px 12px;border-radius:12px;margin:5px;color:white;cursor:pointer;">✅ Entregue</button></div></div>`).join('') : '<div>Nenhum pedido em andamento</div>'; 
+    }
+    
+    function manualUpdateStatus(code, newStatus) { 
+        let order = activeOrders.find(o=>o.code===code); 
+        if(order) { 
+            order.status=newStatus; 
+            saveAllData(); 
+            updateDashboard(); 
+            showToast(`Pedido #${code} atualizado para ${ORDER_STATUS[newStatus]?.name}`);
+        } 
+    }
+    
+    function startTrackingTimers() { 
+        activeOrders.forEach(o=>{ 
+            if(o.status!=='COMPLETED' && !trackingIntervals[o.code]) {
+                trackingIntervals[o.code] = setInterval(() => updateOrderProgress(o.code), 1000);
+            }
+        }); 
+    }
+    
+    function updateOrderProgress(code) { 
+        let o = activeOrders.find(o=>o.code===code); 
+        if(!o || o.status==='COMPLETED') { 
+            if(trackingIntervals[code]) clearInterval(trackingIntervals[code]); 
+            delete trackingIntervals[code]; 
+            return; 
+        } 
+        let elapsed = (Date.now() - o.startTime) / 60000; 
+        let newStatus = elapsed >= STATUS_TIMES.COMPLETED ? 'COMPLETED' : elapsed >= STATUS_TIMES.DELIVERY ? 'DELIVERY' : elapsed >= STATUS_TIMES.PREPARING ? 'PREPARING' : 'PENDING'; 
+        if(o.status !== newStatus) o.status = newStatus; 
+        saveAllData(); 
+        updateDashboard(); 
+    }
+    
+    function switchTab(tab) { 
+        document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active')); 
+        document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); 
+        let tabId = '';
+        if(tab === 'control') tabId = 'tabControl';
+        else if(tab === 'delivery') tabId = 'tabDelivery';
+        else if(tab === 'tracking') tabId = 'tabTracking';
+        else if(tab === 'categories') tabId = 'tabCategories';
+        else if(tab === 'products') tabId = 'tabProducts';
+        else if(tab === 'prices') tabId = 'tabPrices';
+        
+        let activeTab = document.getElementById(tabId);
+        if(activeTab) activeTab.classList.add('active');
+        if(event && event.target) event.target.classList.add('active');
+        
+        if(tab==='categories') renderCategoriesList();
+        if(tab==='products') { updateCategorySelects(); renderProductsList(); } 
+        if(tab==='tracking') updateAdminTrackingList(); 
+        if(tab==='delivery') renderDeliveryZonesList();
+        if(tab==='prices') renderAllProductsPriceList();
+    }
+    
+    function clearHistory() { 
+        if(confirm('Apagar histórico?')) {
+            localStorage.removeItem('orderHistory');
+            updateDashboard();
+            showToast('✅ Histórico apagado!');
+        }
+    }
+    
+    function exportData() { 
+        let history = JSON.parse(localStorage.getItem('orderHistory'))||[]; 
+        if(!history.length) {
+            showToast('Sem dados para exportar!', true);
+            return;
+        }
+        let csv = "Data,Código,Cliente,Total,Frete\n"; 
+        history.forEach(o=>csv+=`${new Date(o.timestamp).toLocaleDateString()},${o.code},${o.customer.name},${o.total.toFixed(2)},${(o.frete||0).toFixed(2)}\n`); 
+        let a=document.createElement('a'); 
+        a.href=URL.createObjectURL(new Blob([csv])); 
+        a.download='pedidos.csv'; 
+        a.click(); 
+        showToast('✅ Dados exportados!');
+    }
+    
+    function checkPassword() { 
+        let input=document.getElementById('adminPassword').value; 
+        if(input===ADMIN_PASSWORD){ 
+            isAdminLogged=true; 
+            localStorage.setItem('adminSession','true'); 
+            const configBtn = document.getElementById('configBtn');
+            if(configBtn) configBtn.classList.add('visible');
+            document.getElementById('passwordScreen').classList.remove('active'); 
+            openDashboard(); 
+        } else {
+            showToast('Senha incorreta!', true);
+        }
+    }
+    
+    function openDashboard(){ 
+        if(!isAdminLogged){ 
+            document.getElementById('passwordScreen').classList.add('active'); 
+            return; 
+        } 
+        document.getElementById('adminOverlay').classList.add('active'); 
+        document.getElementById('adminPanel').classList.add('active'); 
+        renderAllProductsPriceList();
+        updateDashboard(); 
+    }
+    
+    function closeDashboard(){ 
+        document.getElementById('adminOverlay').classList.remove('active'); 
+        document.getElementById('adminPanel').classList.remove('active'); 
+        document.getElementById('passwordScreen').classList.remove('active'); 
+    }
+    
+    function logoutAdmin(){ 
+        isAdminLogged=false; 
+        localStorage.removeItem('adminSession'); 
+        const configBtn = document.getElementById('configBtn');
+        if(configBtn) configBtn.classList.remove('visible');
+        closeDashboard(); 
+        showToast('Admin deslogado!');
+    }
+    
+    function handleAdminClick(){ 
+        adminClickCount++; 
+        setTimeout(()=>{ adminClickCount=0; },2000); 
+        if(adminClickCount>=5){ 
+            adminClickCount=0; 
+            if(isAdminLogged) openDashboard(); 
+            else document.getElementById('passwordScreen').classList.add('active'); 
+        } 
+    }
+    
+    // ==================== FUNÇÕES DO CLIENTE (resumidas para caber) ====================
+    function showMainMenu() { 
+        if(!isOnline){ showOfflineMessage(); return; } 
+        let availableCategories = categories.filter(cat => categoryAvailable[cat] === true);
+        
+        const categoryEmojis = {
+            hamburguer: '🐰🍔',
+            frango: '🐣🍗',
+            calabresa: '🥚🌶️',
+            hotdog: '🐰🌭',
+            especial: '🐇⭐'
+        };
+        
+        let html = `<div class="message bot">
+            <div class="easter-welcome">
+                <h3>🐣 FELIZ PÁSCOA! 🐰</h3>
+                <p>🍫 Aproveite nossos lanches especiais com muito sabor! 🥚</p>
+                <div class="easter-eggs">🥚🐰🌸🥚🐣🌸</div>
+            </div>
+            <div class="menu-grid">
+                ${availableCategories.map(c=>`<div class="menu-card-simple" onclick="showCategory('${c}')">
+                    <div class="emoji">${categoryEmojis[c] || '🐰'}</div>
+                    <div class="name">${c.toUpperCase()}</div>
+                    <div class="price">${menu[c]?.filter(p=>p.available!==false).length || 0} opções</div>
+                </div>`).join('')}
+                <div class="menu-card-simple" onclick="showCart()">
+                    <div class="emoji">🛒🥚</div>
+                    <div class="name">CARRINHO</div>
+                    <div class="price">${cart.length} itens</div>
+                </div>
+            </div>
+        </div>`;
+        setScreen(html);
+    }
+    
+    function showCategory(cat) { 
+        let items = (menu[cat] || []).filter(p => p.available !== false); 
+        if(items.length === 0) {
+            setScreen(`<div class="message bot"><div style="text-align:center;"><div>🐰📁 ${cat.toUpperCase()}</div><div>Nenhum produto disponível no momento</div><button class="back-button" onclick="showMainMenu()">← VOLTAR</button></div></div>`);
+            return;
+        }
+        let html = `<div class="message bot"><div class="category-badge">🐣 ${cat.toUpperCase()} 🥚</div>${items.map(i=>`<div class="item-card" onclick="selectItem(${i.id})"><div class="item-title">${i.name} ${i.popular?'<span class="popular-badge">🔥 POPULAR</span>':''}</div><div class="item-price">R$ ${i.price.toFixed(2)}</div><div class="item-desc" style="font-size:12px;color:#666;">${i.desc}</div><button class="big-button" style="padding:12px;margin-top:12px;" onclick="event.stopPropagation();selectItem(${i.id})">🐰 ADICIONAR 🥚</button></div>`).join('')}<button class="back-button" onclick="showMainMenu()">← VOLTAR</button></div>`;
+        setScreen(html);
+    }
+    
+    function selectItem(id) { 
+        let found; 
+        for(let cat in menu){ 
+            found = menu[cat].find(i=>i.id===id); 
+            if(found) break; 
+        } 
+        if(found && found.available !== false){ 
+            tempItem = { ...found, extras: [], finalPrice: found.price, observation: '' }; 
+            selectedExtras = []; 
+            currentObservation = '';
+            showExtrasAndObservation(found); 
+        } else {
+            showToast('Produto indisponível no momento!', true);
+        }
+    }
+    
+    function showExtrasAndObservation(item) {
+        let extrasTotal = selectedExtras.reduce((sum, e) => sum + e.price, 0);
+        let totalPrice = item.price + extrasTotal;
+        let html = `<div class="message bot"><div><b>🐰 ${item.name} 🥚</b> - R$ ${item.price.toFixed(2)}</div>
+            <div style="margin:15px 0 10px 0;"><strong>🍟 ADICIONAIS</strong></div>`;
+        adicionais.forEach((extra) => { 
+            const isSelected = selectedExtras.some(e => e.name === extra.name); 
+            html += `<div class="extra-option ${isSelected ? 'selected' : ''}" onclick="toggleExtra('${extra.name}', ${extra.price})"><span>${extra.name}</span><span style="color: var(--easter-purple);">+R$ ${extra.price.toFixed(2)}</span></div>`; 
+        });
+        html += `<div class="observation-box">
+            <label style="font-weight:600;">📝 OBSERVAÇÃO (opcional):</label>
+            <textarea id="itemObservation" rows="2" placeholder="Ex: tirar cebola, ponto da carne, sem maionese...">${currentObservation}</textarea>
+        </div>`;
+        html += `<div style="margin:15px 0;padding:10px;background:var(--gray-light);border-radius:12px;text-align:center;"><strong>Total: R$ ${totalPrice.toFixed(2)}</strong></div>`;
+        html += `<button class="big-button" onclick="confirmItemWithObservation()">✅ ADICIONAR (R$ ${totalPrice.toFixed(2)})</button><button class="back-button" onclick="showMainMenu()">← VOLTAR</button></div>`;
+        setScreen(html);
+        
+        const obsTextarea = document.getElementById('itemObservation');
+        if(obsTextarea) {
+            obsTextarea.addEventListener('input', function() {
+                currentObservation = this.value;
+            });
+        }
+    }
+    
+    function toggleExtra(name, price) { 
+        const index = selectedExtras.findIndex(e => e.name === name); 
+        if(index === -1) selectedExtras.push({ name, price }); 
+        else selectedExtras.splice(index, 1); 
+        if(tempItem) showExtrasAndObservation(tempItem); 
+    }
+    
+    function confirmItemWithObservation() { 
+        if(!tempItem) return;
+        const extrasTotal = selectedExtras.reduce((sum, e) => sum + e.price, 0);
+        tempItem.extras = [...selectedExtras]; 
+        tempItem.finalPrice = tempItem.price + extrasTotal;
+        tempItem.observation = currentObservation;
+        cart.push({...tempItem}); 
+        
+        let obsDisplay = tempItem.observation ? `<div style="font-size:12px;color:var(--info);margin-top:5px;">📝 Obs: ${tempItem.observation}</div>` : '';
+        let html = `<div class="message bot"><div style="text-align:center;"><div style="font-size:48px;">🐣✅🥚</div><div><b>${tempItem.name}</b> adicionado!</div>${selectedExtras.length ? `<div style="font-size:13px;">+ ${selectedExtras.map(e=>e.name).join(', ')}</div>` : ''}${obsDisplay}<div style="color:var(--easter-purple);font-size:20px;margin:10px 0;">R$ ${tempItem.finalPrice.toFixed(2)}</div><button class="big-button" onclick="showCart()">🛒 VER CARRINHO</button><button class="big-button" onclick="showMainMenu()">🐰 CONTINUAR</button></div></div>`;
+        setScreen(html);
+        tempItem = null; selectedExtras = []; currentObservation = '';
+    }
+    
+    function showCart() { 
+        if(cart.length === 0){ 
+            setScreen(`<div class="message bot"><div style="text-align:center;"><div style="font-size:48px;">🛒🥚</div><div>Carrinho vazio</div><button class="big-button" onclick="showMainMenu()">VER CARDÁPIO</button></div></div>`);
+            return; 
+        } 
+        let subtotal = cart.reduce((s,i)=>s+i.finalPrice,0); 
+        let freteInfo = null;
+        if(currentDeliveryZone && currentDeliveryZone.name) {
+            freteInfo = calculateFrete(currentDeliveryZone.name, subtotal);
+        } else if(customerData.neighborhood) {
+            freteInfo = calculateFrete(customerData.neighborhood, subtotal);
+            if(freteInfo) currentDeliveryZone = freteInfo.zone;
+            currentFreteValue = freteInfo ? freteInfo.frete : 0;
+        }
+        let frete = freteInfo ? freteInfo.frete : 0; 
+        let total = subtotal + frete; 
+        let html = `<div class="message bot"><div style="font-size:20px;font-weight:700;">🛒 MEU PEDIDO 🥚</div>`;
+        cart.forEach((i,idx)=> { 
+            let obsDisplay = i.observation ? `<div style="font-size:11px;color:var(--info);margin-top:4px;">📝 ${i.observation}</div>` : '';
+            html += `<div class="cart-item-simple"><div class="cart-item-header"><span class="cart-item-name">${i.name}</span><span class="cart-item-price">R$ ${i.finalPrice.toFixed(2)}</span></div>${i.extras.length ? `<div style="font-size:12px;">+ ${i.extras.map(e=>e.name).join(', ')}</div>` : ''}${obsDisplay}<button class="remove-btn" onclick="removeItem(${idx})">REMOVER</button></div>`; 
+        });
+        html += `<div><strong>Subtotal:</strong> R$ ${subtotal.toFixed(2)}</div>`;
+        if(freteInfo) html += `<div class="frete-info">🚚 Entrega (${freteInfo.zone.name}): ${freteInfo.isFree ? 'FRETE GRÁTIS!' : `R$ ${frete.toFixed(2)}`}</div>`;
+        html += `<div class="total-bar">💰 TOTAL: R$ ${total.toFixed(2)}</div><button class="big-button" onclick="showAddressForm()">✅ FINALIZAR</button><button class="big-button" onclick="showMainMenu()">➕ MAIS ITENS</button></div>`;
+        setScreen(html);
+    }
+    
+    function removeItem(i) { cart.splice(i,1); showCart(); }
+    
+    function showAddressForm() { 
+        let html = `<div class="message bot"><div style="font-size:20px;font-weight:700;text-align:center;">📍 ENDEREÇO DE ENTREGA 🐣</div>
+            <div class="input-group"><input type="text" id="customerName" placeholder="👤 Nome completo *" value="${customerData.name}"></div>
+            <div class="input-group"><input type="tel" id="customerPhone" placeholder="📞 Telefone *" value="${customerData.phone}"></div>
+            <div class="address-row"><div class="input-group"><input type="text" id="customerStreet" placeholder="🏠 Rua *" value="${customerData.street}"></div><div class="input-group"><input type="text" id="customerNumber" placeholder="N° *" value="${customerData.number}"></div></div>
+            <div class="input-group"><input type="text" id="customerNeighborhood" placeholder="📍 Bairro *" oninput="updateFretePreview()" value="${customerData.neighborhood}"></div>
+            <div class="input-group"><input type="text" id="customerReference" placeholder="📍 Ponto de referência" value="${customerData.reference}"></div>
+            <div id="fretePreview" class="frete-info" style="display:none;"></div>
+            <button class="big-button" onclick="saveAddressAndGoToPayment()">✅ CONTINUAR</button>
+            <button class="back-button" onclick="showCart()">← VOLTAR</button></div>`;
+        setScreen(html);
+        
+        if(customerData.neighborhood) {
+            setTimeout(() => { updateFretePreview(); }, 50);
+        }
+    }
+    
+    function updateFretePreview() { 
+        let neighborhood = document.getElementById('customerNeighborhood')?.value; 
+        let previewDiv = document.getElementById('fretePreview');
+        if(neighborhood && neighborhood.trim() !== ""){ 
+            let subtotal = cart.reduce((s,i)=>s+i.finalPrice,0); 
+            let {zone, frete, isFree} = calculateFrete(neighborhood, subtotal); 
+            if(previewDiv) {
+                previewDiv.style.display = 'block';
+                previewDiv.innerHTML = `🚚 Zona: ${zone.name} | Frete: ${isFree ? 'GRÁTIS!' : `R$ ${frete.toFixed(2)}`}`;
+            }
+            currentDeliveryZone = zone; 
+            currentFreteValue = frete; 
+        } else if(previewDiv) {
+            previewDiv.style.display = 'none';
+        }
+    }
+    
+    function calculateFrete(neighborhood, subtotal) {
+        const zone = deliveryZones.find(z => neighborhood.toLowerCase().includes(z.name.toLowerCase())) || deliveryZones[0];
+        if (zone.freeThreshold > 0 && subtotal >= zone.freeThreshold) {
+            return { zone, frete: 0, isFree: true };
+        }
+        return { zone, frete: zone.price, isFree: false };
+    }
+    
+    function saveAddressAndGoToPayment() { 
+        let name = document.getElementById('customerName')?.value; 
+        let phone = document.getElementById('customerPhone')?.value; 
+        let street = document.getElementById('customerStreet')?.value; 
+        let number = document.getElementById('customerNumber')?.value; 
+        let neighborhood = document.getElementById('customerNeighborhood')?.value; 
+        let reference = document.getElementById('customerReference')?.value; 
+        
+        if(!name || !phone || !street || !number || !neighborhood) {
+            showToast('Preencha todos os campos obrigatórios!', true);
+            return;
+        }
+        
+        customerData = {name, phone, street, number, neighborhood, reference}; 
+        
+        let subtotal = cart.reduce((s,i)=>s+i.finalPrice,0); 
+        let {zone, frete, isFree} = calculateFrete(neighborhood, subtotal); 
+        currentDeliveryZone = zone; 
+        currentFreteValue = frete; 
+        let total = subtotal + frete; 
+        
+        showPaymentScreen(total);
+    }
+    
+    function showPaymentScreen(total) {
+        let html = `<div class="message bot"><div style="font-size:20px;font-weight:700;text-align:center;">💳 FORMA DE PAGAMENTO 🐰</div>
+            <div class="payment-options">
+                <div class="payment-option" onclick="selectPaymentMethod('pix', ${total})">💠 PIX</div>
+                <div class="payment-option" onclick="selectPaymentMethod('credit', ${total})">💳 CRÉDITO</div>
+                <div class="payment-option" onclick="selectPaymentMethod('debit', ${total})">💳 DÉBITO</div>
+                <div class="payment-option" onclick="selectPaymentMethod('cash', ${total})">💵 DINHEIRO</div>
+            </div>
+            <div class="frete-info">💰 TOTAL: R$ ${total.toFixed(2)}</div>
+            <button class="back-button" onclick="showAddressForm()">← VOLTAR PARA ENDEREÇO</button></div>`;
+        setScreen(html);
+    }
+    
+    function selectPaymentMethod(method, total) { 
+        currentPaymentMethod = method;
+        
+        if(method === 'pix') {
+            let html = `<div class="message bot"><div class="pix-card"><div><strong>💠 PAGAMENTO PIX</strong></div><div class="pix-key" onclick="copyPixKey()">📋 ${PIX_KEY} (clique para copiar)</div><button class="copy-button" onclick="copyPixKey()">📋 COPIAR CHAVE PIX</button><div class="comprovante-aviso">⚠️ APÓS O PAGAMENTO, ENVIE O COMPROVANTE PELO WHATSAPP ⚠️</div></div><div class="frete-info">Valor: R$ ${total.toFixed(2)}</div><button class="big-button" onclick="finalizePixOrder()">✅ JÁ PAGUEI - ENVIAR PEDIDO</button><button class="back-button" onclick="showPaymentScreen(${total})">← VOLTAR PARA PAGAMENTO</button></div>`;
+            setScreen(html);
+        } 
+        else if(method === 'cash') {
+            let html = `<div class="message bot"><div style="font-size:20px;font-weight:700;text-align:center;">💵 PAGAMENTO EM DINHEIRO</div><div class="frete-info">Total: R$ ${total.toFixed(2)}</div><div class="change-option"><label style="display:flex;align-items:center;gap:10px;"><input type="checkbox" id="needChange" onchange="toggleChangeInput()"> Precisa de troco?</label><div id="changeValueDiv" style="display:none;margin-top:10px;"><input type="number" id="changeAmount" step="0.01" placeholder="Valor que vai pagar" style="width:100%;padding:12px;border-radius:12px;border:2px solid var(--gray-light);"></div></div><button class="big-button" onclick="finalizeCashOrder()">✅ CONFIRMAR</button><button class="back-button" onclick="showPaymentScreen(${total})">← VOLTAR PARA PAGAMENTO</button></div>`;
+            setScreen(html);
+        } 
+        else {
+            finalizeOrder();
+        }
+    }
+    
+    function copyPixKey() { 
+        navigator.clipboard.writeText(PIX_KEY).then(() => {
+            showToast('✅ Chave PIX copiada!');
+        }).catch(() => {
+            const textarea = document.createElement('textarea');
+            textarea.value = PIX_KEY;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            showToast('✅ Chave PIX copiada!');
+        });
+    }
+    
+    function sendOrderToWhatsApp(order) {
+        let itemsList = order.items.map(item => {
+            let extrasText = item.extras && item.extras.length > 0 ? ` (+${item.extras.map(e=>e.name).join(', ')})` : '';
+            let obsText = item.observation ? `\n📝 Observação: ${item.observation}` : '';
+            return `🍔 ${item.name}${extrasText} - R$ ${item.finalPrice.toFixed(2)}${obsText}`;
+        }).join('\n');
+        
+        let message = `🐰🥚 *NOVO PEDIDO - LANCHONETE PÁSCOA* 🥚🐰\n\n`;
+        message += `🔒 *CÓDIGO:* #${order.code}\n`;
+        message += `👤 *CLIENTE:* ${order.customer.name}\n`;
+        message += `📞 *TELEFONE:* ${order.customer.phone}\n`;
+        message += `📍 *ENDEREÇO:* ${order.customer.street}, ${order.customer.number} - ${order.customer.neighborhood}\n`;
+        if(order.customer.reference) message += `📍 *REFERÊNCIA:* ${order.customer.reference}\n`;
+        message += `\n📦 *PEDIDO:*\n${itemsList}\n`;
+        message += `\n💰 *SUBTOTAL:* R$ ${order.subtotal.toFixed(2)}\n`;
+        message += `🚚 *FRETE:* ${order.frete > 0 ? `R$ ${order.frete.toFixed(2)}` : 'GRÁTIS'}\n`;
+        message += `💵 *TOTAL:* R$ ${order.total.toFixed(2)}\n`;
+        message += `💳 *PAGAMENTO:* ${order.payment}\n`;
+        message += `⏱️ *TEMPO ESTIMADO:* ${TOTAL_DELIVERY_TIME} minutos\n`;
+        message += `\n🐣 *AGUARDANDO CONFIRMAÇÃO!* 🐣`;
+        
+        window.open(`https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`, '_blank');
+    }
+    
+    function finalizePixOrder() {
+        let subtotal = cart.reduce((s,i)=>s+i.finalPrice,0);
+        let total = subtotal + currentFreteValue;
+        let code = Math.random().toString(36).substring(2,8).toUpperCase();
+        let newOrder = { 
+            code, 
+            customer: customerData, 
+            items: [...cart], 
+            subtotal, 
+            frete: currentFreteValue, 
+            total, 
+            payment: `PIX - Aguardando comprovante`, 
+            timestamp: Date.now(), 
+            startTime: Date.now(), 
+            status: 'PENDING', 
+            zone: currentDeliveryZone?.name 
+        };
+        activeOrders.push(newOrder); 
+        saveAllData(); 
+        startTrackingTimers();
+        
+        sendOrderToWhatsApp(newOrder);
+        
+        let history = JSON.parse(localStorage.getItem('orderHistory'))||[]; 
+        history.push({...newOrder}); 
+        localStorage.setItem('orderHistory',JSON.stringify(history)); 
+        cart = [];
+        
+        let html = `<div class="message bot"><div style="text-align:center;"><div style="font-size:48px;">🐣✅🥚</div><div><strong>PEDIDO #${code} ENVIADO!</strong></div><div>💰 Total: R$ ${total.toFixed(2)}</div><div>⏱️ Tempo estimado: ${TOTAL_DELIVERY_TIME} minutos</div><div style="background:#ffc107;color:#856404;padding:12px;border-radius:12px;margin:15px 0;">🐰 NÃO ESQUEÇA DE ENVIAR O COMPROVANTE DO PIX PELO WHATSAPP! 🥚</div><button class="big-button" onclick="searchAndTrackByCode('${code}')">🚚 RASTREAR</button><button class="big-button" onclick="showMainMenu()">🏠 NOVO PEDIDO</button></div></div>`;
+        setScreen(html);
+        updateDashboard();
+        showToast(`✅ Pedido #${code} enviado!`);
+    }
+    
+    function toggleChangeInput() {
+        let div = document.getElementById('changeValueDiv');
+        if(div) div.style.display = document.getElementById('needChange')?.checked ? 'block' : 'none';
+    }
+    
+    function finalizeCashOrder() {
+        let needChange = document.getElementById('needChange')?.checked || false;
+        let changeAmount = 0, changeValue = 0;
+        let subtotal = cart.reduce((s,i)=>s+i.finalPrice,0);
+        let total = subtotal + currentFreteValue;
+        if(needChange){
+            changeAmount = parseFloat(document.getElementById('changeAmount')?.value);
+            if(isNaN(changeAmount) || changeAmount < total) {
+                showToast(`Valor insuficiente! Total: R$ ${total.toFixed(2)}`, true);
+                return;
+            }
+            changeValue = changeAmount - total;
+        }
+        let code = Math.random().toString(36).substring(2,8).toUpperCase();
+        let paymentInfo = `Dinheiro${needChange ? ` - Pago R$ ${changeAmount.toFixed(2)} | Troco R$ ${changeValue.toFixed(2)}` : ''}`;
+        let newOrder = { 
+            code, 
+            customer: customerData, 
+            items: [...cart], 
+            subtotal, 
+            frete: currentFreteValue, 
+            total, 
+            payment: paymentInfo, 
+            timestamp: Date.now(), 
+            startTime: Date.now(), 
+            status: 'PENDING', 
+            zone: currentDeliveryZone?.name 
+        };
+        activeOrders.push(newOrder); 
+        saveAllData(); 
+        startTrackingTimers();
+        
+        sendOrderToWhatsApp(newOrder);
+        
+        let history = JSON.parse(localStorage.getItem('orderHistory'))||[]; 
+        history.push({...newOrder}); 
+        localStorage.setItem('orderHistory',JSON.stringify(history)); 
+        cart = [];
+        
+        let html = `<div class="message bot"><div style="text-align:center;"><div style="font-size:48px;">🐣✅🥚</div><div><strong>PEDIDO #${code} ENVIADO!</strong></div><div>💰 Total: R$ ${total.toFixed(2)}</div><div>⏱️ Tempo estimado: ${TOTAL_DELIVERY_TIME} minutos</div>${needChange ? `<div>🔄 Troco: R$ ${changeValue.toFixed(2)}</div>` : ''}<button class="big-button" onclick="searchAndTrackByCode('${code}')">🚚 RASTREAR</button><button class="big-button" onclick="showMainMenu()">🏠 NOVO PEDIDO</button></div></div>`;
+        setScreen(html);
+        updateDashboard();
+        showToast(`✅ Pedido #${code} enviado!`);
+    }
+    
+    function finalizeOrder() {
+        let subtotal = cart.reduce((s,i)=>s+i.finalPrice,0);
+        let total = subtotal + currentFreteValue;
+        let code = Math.random().toString(36).substring(2,8).toUpperCase();
+        let paymentName = currentPaymentMethod === 'credit' ? 'Cartão de Crédito' : 'Cartão de Débito';
+        let newOrder = { 
+            code, 
+            customer: customerData, 
+            items: [...cart], 
+            subtotal, 
+            frete: currentFreteValue, 
+            total, 
+            payment: paymentName, 
+            timestamp: Date.now(), 
+            startTime: Date.now(), 
+            status: 'PENDING', 
+            zone: currentDeliveryZone?.name 
+        };
+        activeOrders.push(newOrder); 
+        saveAllData(); 
+        startTrackingTimers();
+        
+        sendOrderToWhatsApp(newOrder);
+        
+        let history = JSON.parse(localStorage.getItem('orderHistory'))||[]; 
+        history.push({...newOrder}); 
+        localStorage.setItem('orderHistory',JSON.stringify(history)); 
+        cart = [];
+        
+        let html = `<div class="message bot"><div style="text-align:center;"><div style="font-size:48px;">🐣✅🥚</div><div><strong>PEDIDO #${code} ENVIADO!</strong></div><div>💰 Total: R$ ${total.toFixed(2)}</div><div>⏱️ Tempo estimado: ${TOTAL_DELIVERY_TIME} minutos</div><button class="big-button" onclick="searchAndTrackByCode('${code}')">🚚 RASTREAR</button><button class="big-button" onclick="showMainMenu()">🏠 NOVO PEDIDO</button></div></div>`;
+        setScreen(html);
+        updateDashboard();
+        showToast(`✅ Pedido #${code} enviado!`);
+    }
+    
+    function showTrackOrder() { 
+        let html = `<div class="message bot"><div class="input-group"><input type="text" id="trackCode" placeholder="Código do pedido" style="text-transform:uppercase;"></div><button class="big-button" onclick="searchAndTrack()">🔍 RASTREAR</button><button class="back-button" onclick="showMainMenu()">← VOLTAR</button></div>`; 
+        setScreen(html);
+    }
+    
+    function searchAndTrack() { 
+        let code = document.getElementById('trackCode')?.value.toUpperCase(); 
+        let order = activeOrders.find(o=>o.code===code); 
+        if(!order){ 
+            showToast('Pedido não encontrado!', true);
+            return; 
+        } 
+        showTrackingCard(order);
+    }
+    
+    function showTrackingCard(order) {
+        let elapsed = (Date.now() - order.startTime) / 60000;
+        let remaining = Math.max(0, TOTAL_DELIVERY_TIME - elapsed);
+        let progress = Math.min(100, (elapsed / TOTAL_DELIVERY_TIME) * 100);
+        let status = elapsed >= STATUS_TIMES.COMPLETED ? 'COMPLETED' : elapsed >= STATUS_TIMES.DELIVERY ? 'DELIVERY' : elapsed >= STATUS_TIMES.PREPARING ? 'PREPARING' : 'PENDING';
+        let mins = Math.floor(remaining);
+        let secs = Math.floor((remaining - mins) * 60);
+        
+        let html = `<div class="message bot"><div class="tracking-card">
+            <div class="order-code">🐰📦 PEDIDO #${order.code} 🥚</div>
+            <div style="text-align:center;"><div class="countdown-timer" id="countdown-${order.code}">${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}</div><div>Tempo restante</div></div>
+            <div class="status-timeline">${Object.keys(ORDER_STATUS).map(s=>`<div class="status-step ${status===s?'active':''}"><div class="status-icon">${ORDER_STATUS[s].icon}</div><div class="status-label">${ORDER_STATUS[s].name}</div></div>`).join('')}</div>
+            <div class="progress-bar"><div class="progress-fill" id="progress-${order.code}" style="width:${progress}%"></div></div>
+        </div><button class="back-button" onclick="showMainMenu()">← VOLTAR</button></div>`;
+        
+        setScreen(html);
+        
+        if(trackingIntervals[`display_${order.code}`]) clearInterval(trackingIntervals[`display_${order.code}`]);
+        trackingIntervals[`display_${order.code}`] = setInterval(() => {
+            let timerEl = document.getElementById(`countdown-${order.code}`);
+            let progressEl = document.getElementById(`progress-${order.code}`);
+            if(timerEl && progressEl && order.status !== 'COMPLETED'){
+                let newElapsed = (Date.now() - order.startTime) / 60000;
+                let newRemaining = Math.max(0, TOTAL_DELIVERY_TIME - newElapsed);
+                let newProgress = Math.min(100, (newElapsed / TOTAL_DELIVERY_TIME) * 100);
+                let newMins = Math.floor(newRemaining);
+                let newSecs = Math.floor((newRemaining - newMins) * 60);
+                timerEl.textContent = `${newMins.toString().padStart(2,'0')}:${newSecs.toString().padStart(2,'0')}`;
+                progressEl.style.width = `${newProgress}%`;
+            } else {
+                clearInterval(trackingIntervals[`display_${order.code}`]);
+                delete trackingIntervals[`display_${order.code}`];
+            }
+        }, 1000);
+    }
+    
+    function searchAndTrackByCode(code) { 
+        let order = activeOrders.find(o=>o.code===code); 
+        if(order) showTrackingCard(order);
+        else showToast('Pedido não encontrado!', true);
+    }
+    
+    function setScreen(html) {
+        const messagesDiv = document.getElementById('chatMessages');
+        if (messagesDiv) {
+            messagesDiv.innerHTML = '';
+            const div = document.createElement('div');
+            div.innerHTML = html;
+            messagesDiv.appendChild(div);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+    }
+    
+    function showOfflineMessage() { 
+        setScreen(`<div class="message bot"><div style="text-align:center;"><div style="font-size:48px;">🔴🐰</div><div>ESTAMOS FECHADOS</div><button class="big-button" onclick="window.location.href='tel:15997188659'">📞 LIGAR</button></div></div>`); 
+    }
+    
+    // ==================== EXPOSIÇÃO GLOBAL ====================
+    window.showMainMenu = showMainMenu;
+    window.showCategory = showCategory;
+    window.selectItem = selectItem;
+    window.toggleExtra = toggleExtra;
+    window.confirmItemWithObservation = confirmItemWithObservation;
+    window.showCart = showCart;
+    window.removeItem = removeItem;
+    window.showAddressForm = showAddressForm;
+    window.saveAddressAndGoToPayment = saveAddressAndGoToPayment;
+    window.showPaymentScreen = showPaymentScreen;
+    window.selectPaymentMethod = selectPaymentMethod;
+    window.copyPixKey = copyPixKey;
+    window.finalizePixOrder = finalizePixOrder;
+    window.finalizeCashOrder = finalizeCashOrder;
+    window.toggleChangeInput = toggleChangeInput;
+    window.showTrackOrder = showTrackOrder;
+    window.searchAndTrack = searchAndTrack;
+    window.searchAndTrackByCode = searchAndTrackByCode;
+    window.toggleOnlineStatus = toggleOnlineStatus;
+    window.addCategory = addCategory;
+    window.deleteCategory = deleteCategory;
+    window.toggleCategoryAvailability = toggleCategoryAvailability;
+    window.addProduct = addProduct;
+    window.deleteProduct = deleteProduct;
+    window.toggleProductAvailability = toggleProductAvailability;
+    window.switchTab = switchTab;
+    window.clearHistory = clearHistory;
+    window.exportData = exportData;
+    window.checkPassword = checkPassword;
+    window.openDashboard = openDashboard;
+    window.closeDashboard = closeDashboard;
+    window.logoutAdmin = logoutAdmin;
+    window.handleAdminClick = handleAdminClick;
+    window.manualUpdateStatus = manualUpdateStatus;
+    window.addDeliveryZone = addDeliveryZone;
+    window.deleteDeliveryZone = deleteDeliveryZone;
+    window.updateFretePreview = updateFretePreview;
+    window.openPriceEditor = openPriceEditor;
+    window.saveEditedPrice = saveEditedPrice;
+    window.closePriceModal = closePriceModal;
+    window.manualSaveAll = manualSaveAll;
+    
+    // Inicialização
+    loadData();
+    setTimeout(()=>showMainMenu(),100);
+</script>
+</body>
+</html>
